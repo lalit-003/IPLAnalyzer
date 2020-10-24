@@ -55,5 +55,14 @@ public class TestingIPLAnalyzer {
 			Assert.assertEquals("Andre Russell", mostRunsCSV[0].playerName);
 		}
 
+		// test to check the batsman with  Strike rate and then best average
+				@Test
+				public void givenCSVFilePath_ShouldReturnPlayerWithBestAverageWithStrikeRate() throws IplAnalyzerException {
+					iplAnalyzer.loadIplData(filePath);
+					String sortedData = iplAnalyzer.sortBatsmanDataOnStrikeRateThenAverage();
+					MostRunsCSV[] mostRunsCSV = new Gson().fromJson(sortedData, MostRunsCSV[].class);
+					Assert.assertEquals("Ishant Sharma", mostRunsCSV[0].playerName);
+				}
+
 
 }
