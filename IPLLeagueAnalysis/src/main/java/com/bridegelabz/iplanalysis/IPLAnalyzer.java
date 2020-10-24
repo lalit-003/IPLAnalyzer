@@ -92,4 +92,13 @@ public class IPLAnalyzer {
 
 	}
 
+	public String sortBatsmanDataOnAverageThenMaximumRuns() {
+		Comparator<MostRunsCSV> csvComparator1 = Comparator.comparing(player -> Double.parseDouble(player.average));
+		Comparator<MostRunsCSV> csvComparator2 = csvComparator1.thenComparing(player -> Double.parseDouble(player.runsScored));
+		this.sortMostRunsCSV(csvComparator2);
+		String sortedRunsList = new Gson().toJson(list);
+		return sortedRunsList;
+
+	}
+
 }
