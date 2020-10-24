@@ -38,10 +38,10 @@ public class MostRunsCSV {
 	public String fiftiesScored;
 	
 	@CsvBindByName(column = "4s" , required =true)
-	public String foursCollected;
+	public int foursCollected;
 	
 	@CsvBindByName(column = "6s" , required =true)
-	public String sixesCollected;
+	public int sixesCollected;
 
 	@Override
 	public String toString() {
