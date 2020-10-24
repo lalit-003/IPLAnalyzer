@@ -34,7 +34,6 @@ public class TestingIPLAnalyzer {
 		MostRunsCSV[] mostRunsCSV = new Gson().fromJson(sortedData, MostRunsCSV[].class);
 		Assert.assertEquals("Ishant Sharma", mostRunsCSV[0].playerName);
 		Assert.assertEquals("333.33", mostRunsCSV[0].strikeRate);
-
 	}
 
 	// test to check the batsman with most boundaries
@@ -45,7 +44,16 @@ public class TestingIPLAnalyzer {
 		MostRunsCSV[] mostRunsCSV = new Gson().fromJson(sortedData, MostRunsCSV[].class);
 		Assert.assertEquals("Andre Russell", mostRunsCSV[0].playerName);
 		Assert.assertEquals(83, mostRunsCSV[0].foursCollected + mostRunsCSV[0].sixesCollected);
-
 	}
+	
+	// test to check the batsman with  Strike rate and then most boundaries
+		@Test
+		public void givenCSVFilePath_ShouldReturnPlayerWithBestStrikeAndBoundaries() throws IplAnalyzerException {
+			iplAnalyzer.loadIplData(filePath);
+			String sortedData = iplAnalyzer.sortBatsmanDataOnBoundariesThenStrikeRate();
+			MostRunsCSV[] mostRunsCSV = new Gson().fromJson(sortedData, MostRunsCSV[].class);
+			Assert.assertEquals("Andre Russell", mostRunsCSV[0].playerName);
+		}
+
 
 }
