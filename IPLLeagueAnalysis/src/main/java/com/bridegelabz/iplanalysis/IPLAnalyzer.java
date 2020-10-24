@@ -55,4 +55,15 @@ public class IPLAnalyzer {
 		}
 	}
 
+	public String sortBatsmanDataOnStrikeRate() throws IplAnalyzerException {
+		if (list == null || list.size() == 0) {
+			throw new IplAnalyzerException("No Data Found in list", IplAnalyzerException.ExceptionType.NO_DATA_FOUND);
+		}
+		Comparator<MostRunsCSV> csvComparator = Comparator.comparing(player -> Double.parseDouble(player.strikeRate));
+		this.sortMostRunsCSV(csvComparator);
+		String sortedRunsList = new Gson().toJson(list);
+		return sortedRunsList;
+	}
+
+
 }
