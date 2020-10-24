@@ -63,6 +63,15 @@ public class TestingIPLAnalyzer {
 					MostRunsCSV[] mostRunsCSV = new Gson().fromJson(sortedData, MostRunsCSV[].class);
 					Assert.assertEquals("Ishant Sharma", mostRunsCSV[0].playerName);
 				}
+				
+				// test to check the batsman with  best Average and then Maximum Runs
+				@Test
+				public void givenCSVFilePath_ShouldReturnPlayerWithMaximumRunsWithBestAverages() throws IplAnalyzerException {
+					iplAnalyzer.loadIplData(filePath);
+					String sortedData = iplAnalyzer.sortBatsmanDataOnAverageThenMaximumRuns();
+					MostRunsCSV[] mostRunsCSV = new Gson().fromJson(sortedData, MostRunsCSV[].class);
+					Assert.assertEquals("MS Dhoni", mostRunsCSV[0].playerName);
+				}
 
 
 }
