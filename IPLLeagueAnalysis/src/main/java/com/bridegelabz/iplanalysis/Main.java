@@ -1,4 +1,4 @@
-package com.bridegelabz.iplanalysis.IPLLeagueAnalysis;
+package com.bridegelabz.iplanalysis;
 
 /**
  * Hello world!
