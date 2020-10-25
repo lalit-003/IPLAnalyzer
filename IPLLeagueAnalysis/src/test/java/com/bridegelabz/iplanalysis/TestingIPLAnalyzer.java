@@ -91,6 +91,17 @@ public class TestingIPLAnalyzer {
 			Assert.assertEquals("166", mostWicketsCSV[0].average);
 
 		}
+       
+		// UC8
+				// test to check the bowler with top bowling Striking rates
+				@Test
+				public void givenCSVFilePath_ShouldReturnPalyersWithTopStrikingRates() throws IplAnalyzerException {
+					iplAnalyzer.loadIplDataBowler(filePathBowler);
+					String sortedData = iplAnalyzer.sortBowlerDataOnTopStrikingRates();
+					MostWicketsCSV[] mostWicketsCSV = new Gson().fromJson(sortedData, MostWicketsCSV[].class);
+					Assert.assertEquals("Krishnappa Gowtham", mostWicketsCSV[0].playerName);
+					Assert.assertEquals("120", mostWicketsCSV[0].strikeRate);
 
+				}
 
 }
