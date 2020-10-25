@@ -155,5 +155,14 @@ public class IPLAnalyzer {
 
 	}
 
+	public String sortBowlerDataOnEconomy() {
+		Comparator<MostWicketsCSV> csvComparator = Comparator.comparing(player -> Double.parseDouble(player.economy));
+		this.sortMostWicketsCSV(csvComparator.reversed());
+		String sortedWicketsList = new Gson().toJson(listBowler);
+		return sortedWicketsList;
+
+
+	}
+
 	
 }
