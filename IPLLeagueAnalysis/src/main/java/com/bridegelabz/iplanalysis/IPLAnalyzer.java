@@ -178,5 +178,14 @@ public class IPLAnalyzer {
 
 	}
 
+	public String sortBowlerWithMaximumWicketsWithBestAverage() {
+		Comparator<MostWicketsCSV> csvComparator = Comparator.comparing(player -> Double.parseDouble(player.average));
+		Comparator<MostWicketsCSV> csvComparator1 = csvComparator.thenComparing(player -> Double.parseDouble(player.wicketsTaken));
+		this.sortMostWicketsCSV(csvComparator1);
+		String sortedWicketsList = new Gson().toJson(listBowler);
+		return sortedWicketsList;
+
+	}
+
 	
 }
