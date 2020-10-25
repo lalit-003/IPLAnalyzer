@@ -144,4 +144,16 @@ public class IPLAnalyzer {
 		return sortedWicketsList;
 	}
 
+	public String sortBowlerDataOnTopStrikingRates() throws IplAnalyzerException {
+		if (listBowler == null || listBowler.size() == 0) {
+			throw new IplAnalyzerException("No Data Found in list", IplAnalyzerException.ExceptionType.NO_DATA_FOUND);
+		}
+		Comparator<MostWicketsCSV> csvComparator = Comparator.comparing(player -> Double.parseDouble(player.strikeRate));
+		this.sortMostWicketsCSV(csvComparator);
+		String sortedWicketsList = new Gson().toJson(listBowler);
+		return sortedWicketsList;
+
+	}
+
+	
 }
