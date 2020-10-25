@@ -16,12 +16,21 @@ import com.google.gson.Gson;
 public class IPLAnalyzer {
 
 	List<MostRunsCSV> list;
+	List<MostWicketsCSV> listBowler;
 	Map<SortType,Comparator<MostRunsCSV>> sortedMap;
 	ICSVBuilder csvBuilder = BuilderFactoryCSV.generateBuilder();
 
 	public void loadIplData(String filePath) throws IplAnalyzerException {
 		try (Reader reader = Files.newBufferedReader(Paths.get(filePath))) {
 			list = csvBuilder.getList(reader, MostRunsCSV.class);
+		} catch (IOException e) {
+			throw new IplAnalyzerException("provided invalid file path", ExceptionType.INVALID_FILE_PATH);
+		}
+	}
+	
+	public void loadIplDataBowler(String filePath) throws IplAnalyzerException {
+		try (Reader reader = Files.newBufferedReader(Paths.get(filePath))) {
+			listBowler = csvBuilder.getList(reader, MostWicketsCSV.class);
 		} catch (IOException e) {
 			throw new IplAnalyzerException("provided invalid file path", ExceptionType.INVALID_FILE_PATH);
 		}
@@ -106,6 +115,33 @@ public class IPLAnalyzer {
 		for (int m = 0; m < list.size(); m++) {
 			System.out.println(list.get(m));
 		}
+	}
+
+    private void sortMostWicketsCSV(Comparator<MostWicketsCSV> wicketsComparator) {
+		for (int i = 0; i < listBowler.size() - 1; i++) {
+			for (int j = 0; j < listBowler.size() - 1 - i; j++) {
+				MostWicketsCSV mostRuns1 = listBowler.get(j);
+				MostWicketsCSV mostRuns2 = listBowler.get(j + 1);
+				if (wicketsComparator.compare(mostRuns1, mostRuns2) < 0) {
+					listBowler.set(j, mostRuns2);
+					listBowler.set(j + 1, mostRuns1);
+				}
+			}
+		}
+		// to print list after sorting
+		for (int m = 0; m < listBowler.size(); m++) {
+			System.out.println(listBowler.get(m));
+		}
+	}
+
+	public String sortBowlerDataOnAverage() throws IplAnalyzerException {
+		if (listBowler == null || listBowler.size() == 0) {
+			throw new IplAnalyzerException("No Data Found in list", IplAnalyzerException.ExceptionType.NO_DATA_FOUND);
+		}
+		Comparator<MostWicketsCSV> csvComparator = Comparator.comparing(player -> Double.parseDouble(player.average));
+		this.sortMostWicketsCSV(csvComparator);
+		String sortedWicketsList = new Gson().toJson(listBowler);
+		return sortedWicketsList;
 	}
 
 }

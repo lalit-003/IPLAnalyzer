@@ -17,7 +17,7 @@ public class TestingIPLAnalyzer {
 		iplAnalyzer = new IPLAnalyzer();
 	}
 
-	//UC1
+	// UC1
 	// test to check the batsman with top batting average
 	@Test
 	public void givenCSVFilePath_ShouldReturnTopBattingAverage() throws IplAnalyzerException {
@@ -27,8 +27,8 @@ public class TestingIPLAnalyzer {
 		Assert.assertEquals("MS Dhoni", mostRunsCSV[0].playerName);
 		Assert.assertEquals("83.2", mostRunsCSV[0].average);
 	}
-     
-	//UC2
+
+	// UC2
 	// test to check the batsman with top strike rate
 	@Test
 	public void givenCSVFilePath_ShouldReturnTopStrikeRate() throws IplAnalyzerException {
@@ -39,7 +39,7 @@ public class TestingIPLAnalyzer {
 		Assert.assertEquals("333.33", mostRunsCSV[0].strikeRate);
 	}
 
-	//UC3
+	// UC3
 	// test to check the batsman with most boundaries
 	@Test
 	public void givenCSVFilePath_ShouldReturnPlayerWithMostSixesNFours() throws IplAnalyzerException {
@@ -49,36 +49,48 @@ public class TestingIPLAnalyzer {
 		Assert.assertEquals("Andre Russell", mostRunsCSV[0].playerName);
 		Assert.assertEquals(83, mostRunsCSV[0].foursCollected + mostRunsCSV[0].sixesCollected);
 	}
-	
-	//UC4
-	// test to check the batsman with  Strike rate and then most boundaries
-		@Test
-		public void givenCSVFilePath_ShouldReturnPlayerWithBestStrikeAndBoundaries() throws IplAnalyzerException {
-			iplAnalyzer.loadIplData(filePath);
-			String sortedData = iplAnalyzer.sortBatsmanDataOnBoundariesThenStrikeRate();
-			MostRunsCSV[] mostRunsCSV = new Gson().fromJson(sortedData, MostRunsCSV[].class);
-			Assert.assertEquals("Andre Russell", mostRunsCSV[0].playerName);
-		}
 
-		//UC5
-		// test to check the batsman with  Strike rate and then best average
-				@Test
-				public void givenCSVFilePath_ShouldReturnPlayerWithBestAverageWithStrikeRate() throws IplAnalyzerException {
-					iplAnalyzer.loadIplData(filePath);
-					String sortedData = iplAnalyzer.sortBatsmanDataOnStrikeRateThenAverage();
-					MostRunsCSV[] mostRunsCSV = new Gson().fromJson(sortedData, MostRunsCSV[].class);
-					Assert.assertEquals("Ishant Sharma", mostRunsCSV[0].playerName);
-				}
-				
-				//UC6
-				// test to check the batsman with  best Average and then Maximum Runs
-				@Test
-				public void givenCSVFilePath_ShouldReturnPlayerWithMaximumRunsWithBestAverages() throws IplAnalyzerException {
-					iplAnalyzer.loadIplData(filePath);
-					String sortedData = iplAnalyzer.sortBatsmanDataOnAverageThenMaximumRuns();
-					MostRunsCSV[] mostRunsCSV = new Gson().fromJson(sortedData, MostRunsCSV[].class);
-					Assert.assertEquals("MS Dhoni", mostRunsCSV[0].playerName);
-				}
+	// UC4
+	// test to check the batsman with Strike rate and then most boundaries
+	@Test
+	public void givenCSVFilePath_ShouldReturnPlayerWithBestStrikeAndBoundaries() throws IplAnalyzerException {
+		iplAnalyzer.loadIplData(filePath);
+		String sortedData = iplAnalyzer.sortBatsmanDataOnBoundariesThenStrikeRate();
+		MostRunsCSV[] mostRunsCSV = new Gson().fromJson(sortedData, MostRunsCSV[].class);
+		Assert.assertEquals("Andre Russell", mostRunsCSV[0].playerName);
+	}
+
+	// UC5
+	// test to check the batsman with Strike rate and then best average
+	@Test
+	public void givenCSVFilePath_ShouldReturnPlayerWithBestAverageWithStrikeRate() throws IplAnalyzerException {
+		iplAnalyzer.loadIplData(filePath);
+		String sortedData = iplAnalyzer.sortBatsmanDataOnStrikeRateThenAverage();
+		MostRunsCSV[] mostRunsCSV = new Gson().fromJson(sortedData, MostRunsCSV[].class);
+		Assert.assertEquals("Ishant Sharma", mostRunsCSV[0].playerName);
+	}
+
+	// UC6
+	// test to check the batsman with best Average and then Maximum Runs
+	@Test
+	public void givenCSVFilePath_ShouldReturnPlayerWithMaximumRunsWithBestAverages() throws IplAnalyzerException {
+		iplAnalyzer.loadIplData(filePath);
+		String sortedData = iplAnalyzer.sortBatsmanDataOnAverageThenMaximumRuns();
+		MostRunsCSV[] mostRunsCSV = new Gson().fromJson(sortedData, MostRunsCSV[].class);
+		Assert.assertEquals("MS Dhoni", mostRunsCSV[0].playerName);
+	}
+	
+	// UC7
+		// test to check the bowler with top Average 
+		@Test
+		public void givenCSVFilePath_ShouldReturnPalyersWithTopBowlingAverages() throws IplAnalyzerException {
+			iplAnalyzer.loadIplDataBowler(filePathBowler);
+			String sortedData = iplAnalyzer.sortBowlerDataOnAverage();
+			MostWicketsCSV[] mostWicketsCSV = new Gson().fromJson(sortedData, MostWicketsCSV[].class);
+			Assert.assertEquals("Krishnappa Gowtham", mostWicketsCSV[0].playerName);
+			Assert.assertEquals("166", mostWicketsCSV[0].average);
+
+		}
 
 
 }
