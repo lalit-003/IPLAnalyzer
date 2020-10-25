@@ -79,65 +79,75 @@ public class TestingIPLAnalyzer {
 		MostRunsCSV[] mostRunsCSV = new Gson().fromJson(sortedData, MostRunsCSV[].class);
 		Assert.assertEquals("MS Dhoni", mostRunsCSV[0].playerName);
 	}
-	
+
 	// UC7
-		// test to check the bowler with top Average 
+	// test to check the bowler with top Average
+	@Test
+	public void givenCSVFilePath_ShouldReturnPalyersWithTopBowlingAverages() throws IplAnalyzerException {
+		iplAnalyzer.loadIplDataBowler(filePathBowler);
+		String sortedData = iplAnalyzer.sortBowlerDataOnAverage();
+		MostWicketsCSV[] mostWicketsCSV = new Gson().fromJson(sortedData, MostWicketsCSV[].class);
+		Assert.assertEquals("Krishnappa Gowtham", mostWicketsCSV[0].playerName);
+		Assert.assertEquals("166", mostWicketsCSV[0].average);
+
+	}
+
+	// UC8
+	// test to check the bowler with top bowling Striking rates
+	@Test
+	public void givenCSVFilePath_ShouldReturnPalyersWithTopStrikingRates() throws IplAnalyzerException {
+		iplAnalyzer.loadIplDataBowler(filePathBowler);
+		String sortedData = iplAnalyzer.sortBowlerDataOnTopStrikingRates();
+		MostWicketsCSV[] mostWicketsCSV = new Gson().fromJson(sortedData, MostWicketsCSV[].class);
+		Assert.assertEquals("Krishnappa Gowtham", mostWicketsCSV[0].playerName);
+		Assert.assertEquals("120", mostWicketsCSV[0].strikeRate);
+	}
+
+	// UC9
+	// test to check the bowler with best economy
+	@Test
+	public void givenCSVFilePath_ShouldReturnPalyersWithBestEconomy() throws IplAnalyzerException {
+		iplAnalyzer.loadIplDataBowler(filePathBowler);
+		String sortedData = iplAnalyzer.sortBowlerDataOnEconomy();
+		MostWicketsCSV[] mostWicketsCSV = new Gson().fromJson(sortedData, MostWicketsCSV[].class);
+		Assert.assertEquals("Shivam Dube", mostWicketsCSV[0].playerName);
+		Assert.assertEquals("4.8", mostWicketsCSV[0].economy);
+	}
+
+	// UC10
+	// test to check the bowler with five+four wicket hauls then Strike Rate
+	@Test
+	public void givenCSVFilePath_ShouldReturnPalyersWithBestStrikeWithFiveAndfourwicket() throws IplAnalyzerException {
+		iplAnalyzer.loadIplDataBowler(filePathBowler);
+		String sortedData = iplAnalyzer.sortBowlerDataBestStrikeRateWithFiveAndFourWicketHauls();
+		MostWicketsCSV[] mostWicketsCSV = new Gson().fromJson(sortedData, MostWicketsCSV[].class);
+		Assert.assertEquals("Lasith Malinga", mostWicketsCSV[0].playerName);
+		Assert.assertEquals("16.81", mostWicketsCSV[0].strikeRate);
+	}
+
+	// UC11
+	// test to check the bowler with top Strike Rate and then top bowling averages
+	@Test
+	public void givenCSVFilePath_ShouldReturnPalyersWithGreatBowlingAveragesWithBestStrikeRate()
+			throws IplAnalyzerException {
+		iplAnalyzer.loadIplDataBowler(filePathBowler);
+		String sortedData = iplAnalyzer.sortBowlerDataBestAveragesWithStrikeRate();
+		MostWicketsCSV[] mostWicketsCSV = new Gson().fromJson(sortedData, MostWicketsCSV[].class);
+		Assert.assertEquals("Krishnappa Gowtham", mostWicketsCSV[0].playerName);
+		Assert.assertEquals("120", mostWicketsCSV[0].strikeRate);
+	}
+	
+	// UC12
+		// test to check the bowler with top average and then maximum wickets
 		@Test
-		public void givenCSVFilePath_ShouldReturnPalyersWithTopBowlingAverages() throws IplAnalyzerException {
+		public void givenCSVFilePath_ShouldReturnPalyersWithMaximumWicketsWithBestAverage()
+				throws IplAnalyzerException {
 			iplAnalyzer.loadIplDataBowler(filePathBowler);
-			String sortedData = iplAnalyzer.sortBowlerDataOnAverage();
+			String sortedData = iplAnalyzer.sortBowlerWithMaximumWicketsWithBestAverage();
 			MostWicketsCSV[] mostWicketsCSV = new Gson().fromJson(sortedData, MostWicketsCSV[].class);
 			Assert.assertEquals("Krishnappa Gowtham", mostWicketsCSV[0].playerName);
-			Assert.assertEquals("166", mostWicketsCSV[0].average);
-
+			Assert.assertEquals("1", mostWicketsCSV[0].wicketsTaken);
 		}
-       
-		// UC8
-				// test to check the bowler with top bowling Striking rates
-				@Test
-				public void givenCSVFilePath_ShouldReturnPalyersWithTopStrikingRates() throws IplAnalyzerException {
-					iplAnalyzer.loadIplDataBowler(filePathBowler);
-					String sortedData = iplAnalyzer.sortBowlerDataOnTopStrikingRates();
-					MostWicketsCSV[] mostWicketsCSV = new Gson().fromJson(sortedData, MostWicketsCSV[].class);
-					Assert.assertEquals("Krishnappa Gowtham", mostWicketsCSV[0].playerName);
-					Assert.assertEquals("120", mostWicketsCSV[0].strikeRate);
-				}
-
-				// UC9
-				// test to check the bowler with best economy
-				@Test
-				public void givenCSVFilePath_ShouldReturnPalyersWithBestEconomy() throws IplAnalyzerException {
-					iplAnalyzer.loadIplDataBowler(filePathBowler);
-					String sortedData = iplAnalyzer.sortBowlerDataOnEconomy();
-					MostWicketsCSV[] mostWicketsCSV = new Gson().fromJson(sortedData, MostWicketsCSV[].class);
-					Assert.assertEquals("Shivam Dube", mostWicketsCSV[0].playerName);
-					Assert.assertEquals("4.8", mostWicketsCSV[0].economy);
-				}
-
-				
-				// UC10
-				// test to check the bowler with five+four wicket hauls then Strike Rate
-				@Test
-				public void givenCSVFilePath_ShouldReturnPalyersWithBestStrikeWithFiveAndfourwicket() throws IplAnalyzerException {
-					iplAnalyzer.loadIplDataBowler(filePathBowler);
-					String sortedData = iplAnalyzer.sortBowlerDataBestStrikeRateWithFiveAndFourWicketHauls();
-					MostWicketsCSV[] mostWicketsCSV = new Gson().fromJson(sortedData, MostWicketsCSV[].class);
-					Assert.assertEquals("Lasith Malinga", mostWicketsCSV[0].playerName);
-					Assert.assertEquals("16.81", mostWicketsCSV[0].strikeRate);
-				}
-
-				// UC11
-				// test to check the bowler with top Strike Rate and then top bowling averages
-				@Test
-				public void givenCSVFilePath_ShouldReturnPalyersWithGreatBowlingAveragesWithBestStrikeRate() throws IplAnalyzerException {
-					iplAnalyzer.loadIplDataBowler(filePathBowler);
-					String sortedData = iplAnalyzer.sortBowlerDataBestAveragesWithStrikeRate();
-					MostWicketsCSV[] mostWicketsCSV = new Gson().fromJson(sortedData, MostWicketsCSV[].class);
-					Assert.assertEquals("Krishnappa Gowtham", mostWicketsCSV[0].playerName);
-					Assert.assertEquals("120", mostWicketsCSV[0].strikeRate);
-				}
-
-
 
 
 }
