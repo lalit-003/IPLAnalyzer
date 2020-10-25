@@ -29,7 +29,7 @@ public class MostWicketsCSV {
 	public String bbi;
 	
 	@CsvBindByName(column = "Econ" , required =true)
-	public String Economy;
+	public String economy;
 	
 	@CsvBindByName(column = "SR" , required =true)
 	public String strikeRate;
@@ -44,7 +44,7 @@ public class MostWicketsCSV {
 	public String toString() {
 		return "Player =" + playerName + ", Matches=" + matchesPlayed + ", Innings=" + inningsPlayed + " oversBowled = " + overBowled+
 				"runsGiven = " +runsGiven + " wickets  = "+wicketsTaken + " average = " +average +" BBI = " +bbi 
-				+" Strike Rate = " +strikeRate + "Economy = " +Economy+" 4WicketsHaul = "+fourWicketHaul
+				+" Strike Rate = " +strikeRate + "Economy = " +economy+" 4WicketsHaul = "+fourWicketHaul
 				+"5WicketsHaul = "+fiveWicketHaul;
 	}
 }
