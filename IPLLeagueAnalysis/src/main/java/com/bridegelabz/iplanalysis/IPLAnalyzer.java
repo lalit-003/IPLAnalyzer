@@ -6,7 +6,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.bridegelabz.iplanalysis.IplAnalyzerException.ExceptionType;
 import com.google.gson.Gson;
@@ -14,11 +16,8 @@ import com.google.gson.Gson;
 public class IPLAnalyzer {
 
 	List<MostRunsCSV> list;
+	Map<SortType,Comparator<MostRunsCSV>> sortedMap;
 	ICSVBuilder csvBuilder = BuilderFactoryCSV.generateBuilder();
-
-	public IPLAnalyzer() {
-		list = new ArrayList<>();
-	}
 
 	public void loadIplData(String filePath) throws IplAnalyzerException {
 		try (Reader reader = Files.newBufferedReader(Paths.get(filePath))) {
@@ -36,23 +35,6 @@ public class IPLAnalyzer {
 		this.sortMostRunsCSV(csvComparator);
 		String sortedRunsList = new Gson().toJson(list);
 		return sortedRunsList;
-	}
-
-	private void sortMostRunsCSV(Comparator<MostRunsCSV> runsComparator) {
-		for (int i = 0; i < list.size() - 1; i++) {
-			for (int j = 0; j < list.size() - 1 - i; j++) {
-				MostRunsCSV mostRuns1 = list.get(j);
-				MostRunsCSV mostRuns2 = list.get(j + 1);
-				if (runsComparator.compare(mostRuns1, mostRuns2) < 0) {
-					list.set(j, mostRuns2);
-					list.set(j + 1, mostRuns1);
-				}
-			}
-		}
-		// to print list after sorting
-		for (int m = 0; m < list.size(); m++) {
-			System.out.println(list.get(m));
-		}
 	}
 
 	public String sortBatsmanDataOnStrikeRate() throws IplAnalyzerException {
@@ -98,7 +80,32 @@ public class IPLAnalyzer {
 		this.sortMostRunsCSV(csvComparator2);
 		String sortedRunsList = new Gson().toJson(list);
 		return sortedRunsList;
-
+	}
+	
+    public String sortDataAccordingToSortType(SortType sortType) throws IplAnalyzerException {
+        if (list == null || list.size() == 0) {
+            throw new IplAnalyzerException("No Data Found", IplAnalyzerException.ExceptionType.NO_DATA_FOUND);
+        }
+        this.sortMostRunsCSV(sortedMap.get(sortType).reversed());
+        String sortedStateCensus = new Gson().toJson(list);
+        return sortedStateCensus;
+    }
+	
+    private void sortMostRunsCSV(Comparator<MostRunsCSV> runsComparator) {
+		for (int i = 0; i < list.size() - 1; i++) {
+			for (int j = 0; j < list.size() - 1 - i; j++) {
+				MostRunsCSV mostRuns1 = list.get(j);
+				MostRunsCSV mostRuns2 = list.get(j + 1);
+				if (runsComparator.compare(mostRuns1, mostRuns2) < 0) {
+					list.set(j, mostRuns2);
+					list.set(j + 1, mostRuns1);
+				}
+			}
+		}
+		// to print list after sorting
+		for (int m = 0; m < list.size(); m++) {
+			System.out.println(list.get(m));
+		}
 	}
 
 }

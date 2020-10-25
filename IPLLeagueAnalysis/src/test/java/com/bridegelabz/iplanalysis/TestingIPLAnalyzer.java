@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 public class TestingIPLAnalyzer {
 
 	public static String filePath = "D:\\BridgeLabz-Fellowship\\IPL\\IPLLeagueAnalysis\\resources\\MostRuns.csv";
+	public static String filePathBowler = "D:\\BridgeLabz-Fellowship\\IPL\\IPLLeagueAnalysis\\resources\\MostWickets.csv";
 	private IPLAnalyzer iplAnalyzer;
 
 	@Before
@@ -16,6 +17,7 @@ public class TestingIPLAnalyzer {
 		iplAnalyzer = new IPLAnalyzer();
 	}
 
+	//UC1
 	// test to check the batsman with top batting average
 	@Test
 	public void givenCSVFilePath_ShouldReturnTopBattingAverage() throws IplAnalyzerException {
@@ -25,7 +27,8 @@ public class TestingIPLAnalyzer {
 		Assert.assertEquals("MS Dhoni", mostRunsCSV[0].playerName);
 		Assert.assertEquals("83.2", mostRunsCSV[0].average);
 	}
-
+     
+	//UC2
 	// test to check the batsman with top strike rate
 	@Test
 	public void givenCSVFilePath_ShouldReturnTopStrikeRate() throws IplAnalyzerException {
@@ -36,6 +39,7 @@ public class TestingIPLAnalyzer {
 		Assert.assertEquals("333.33", mostRunsCSV[0].strikeRate);
 	}
 
+	//UC3
 	// test to check the batsman with most boundaries
 	@Test
 	public void givenCSVFilePath_ShouldReturnPlayerWithMostSixesNFours() throws IplAnalyzerException {
@@ -46,6 +50,7 @@ public class TestingIPLAnalyzer {
 		Assert.assertEquals(83, mostRunsCSV[0].foursCollected + mostRunsCSV[0].sixesCollected);
 	}
 	
+	//UC4
 	// test to check the batsman with  Strike rate and then most boundaries
 		@Test
 		public void givenCSVFilePath_ShouldReturnPlayerWithBestStrikeAndBoundaries() throws IplAnalyzerException {
@@ -55,6 +60,7 @@ public class TestingIPLAnalyzer {
 			Assert.assertEquals("Andre Russell", mostRunsCSV[0].playerName);
 		}
 
+		//UC5
 		// test to check the batsman with  Strike rate and then best average
 				@Test
 				public void givenCSVFilePath_ShouldReturnPlayerWithBestAverageWithStrikeRate() throws IplAnalyzerException {
@@ -64,6 +70,7 @@ public class TestingIPLAnalyzer {
 					Assert.assertEquals("Ishant Sharma", mostRunsCSV[0].playerName);
 				}
 				
+				//UC6
 				// test to check the batsman with  best Average and then Maximum Runs
 				@Test
 				public void givenCSVFilePath_ShouldReturnPlayerWithMaximumRunsWithBestAverages() throws IplAnalyzerException {
