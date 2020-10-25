@@ -114,6 +114,19 @@ public class TestingIPLAnalyzer {
 					Assert.assertEquals("4.8", mostWicketsCSV[0].economy);
 				}
 
+				
+				// UC10
+				// test to check the bowler with five+four wicket hauls then Strike Rate
+				@Test
+				public void givenCSVFilePath_ShouldReturnPalyersWithBestStrikeWithFiveAndfourwicket() throws IplAnalyzerException {
+					iplAnalyzer.loadIplDataBowler(filePathBowler);
+					String sortedData = iplAnalyzer.sortBowlerDataBestStrikeRateWithFiveAndFourWicketHauls();
+					MostWicketsCSV[] mostWicketsCSV = new Gson().fromJson(sortedData, MostWicketsCSV[].class);
+					Assert.assertEquals("Lasith Malinga", mostWicketsCSV[0].playerName);
+					Assert.assertEquals("16.81", mostWicketsCSV[0].strikeRate);
+				}
+
+
 
 
 }

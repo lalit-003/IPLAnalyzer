@@ -152,7 +152,6 @@ public class IPLAnalyzer {
 		this.sortMostWicketsCSV(csvComparator);
 		String sortedWicketsList = new Gson().toJson(listBowler);
 		return sortedWicketsList;
-
 	}
 
 	public String sortBowlerDataOnEconomy() {
@@ -160,8 +159,14 @@ public class IPLAnalyzer {
 		this.sortMostWicketsCSV(csvComparator.reversed());
 		String sortedWicketsList = new Gson().toJson(listBowler);
 		return sortedWicketsList;
+	}
 
-
+	public String sortBowlerDataBestStrikeRateWithFiveAndFourWicketHauls() {
+		Comparator<MostWicketsCSV> csvComparator = Comparator.comparing(player ->player.fourWicketHaul+player.fiveWicketHaul);
+		Comparator<MostWicketsCSV> csvComparator1 = csvComparator.thenComparing(player -> Double.parseDouble(player.strikeRate));
+		this.sortMostWicketsCSV(csvComparator1);
+		String sortedWicketsList = new Gson().toJson(listBowler);
+		return sortedWicketsList;
 	}
 
 	
