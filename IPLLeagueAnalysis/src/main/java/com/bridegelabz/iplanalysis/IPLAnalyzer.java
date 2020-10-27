@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -186,6 +187,106 @@ public class IPLAnalyzer {
 		return sortedWicketsList;
 
 	}
-
 	
+	public List<String> getBatsmanName()
+	{
+		List<String> listBatsmanName = new ArrayList<String>(); 
+		for(int i=0;i<list.size();i++)
+		{
+			listBatsmanName.add(list.get(i).playerName);
+		}
+		return listBatsmanName;
+	}
+
+	public List<String> getBowlerName()
+	{
+		List<String> listBowlerName = new ArrayList<String>(); 
+		for(int i=0;i<listBowler.size();i++)
+		{
+			listBowlerName.add(listBowler.get(i).playerName);
+		}
+		return listBowlerName;
+	}
+	
+	public List<String> getAllRounders()
+	{
+		List<String> batsman = this.getBatsmanName();
+		List<String> bowler  = this.getBowlerName();
+		List<String> allRounderList = new ArrayList<>(); 
+		for (String i : batsman )
+		{
+			for(String j : bowler)
+			{
+				if(i.equals(j)) {
+					allRounderList.add(i);
+				}
+			}
+		}
+          System.out.println("Printing all rounder names");
+          for(String name : allRounderList)
+          {
+        	  System.out.println(name);
+          }
+		return allRounderList;
+	}
+	
+	public HashMap<String,Double> getAllRounderPoints()
+	{
+		List<String> allRounders = this.getAllRounders();
+		HashMap<String,Double> allRounderPoints = new HashMap<String,Double>();
+		for(String allrounder : allRounders)
+		{
+			Double points = 0.0;
+			for(int i=0;i<list.size();i++)
+			{
+			    if(list.get(i).playerName==allrounder)
+			    	points = points+Double.parseDouble(list.get(i).runsScored);
+			}
+
+			for(int j=0;j<listBowler.size();j++)
+			{
+			    if((listBowler.get(j).playerName).equals(allrounder))
+			    {
+			    	points = points+(Double.parseDouble(listBowler.get(j).wicketsTaken)*10);
+			    }
+			    }
+			allRounderPoints.put(allrounder, points);
+		}
+		//printing allrounders with points 
+		for(String s : allRounderPoints.keySet())
+		{
+			System.out.println("name is = " + s + "  and points are : " + allRounderPoints.get(s));
+		}
+	return allRounderPoints;
+	}
+
+	public HashMap<String, Double> getAveragePoints() {
+		List<String> allRounders = this.getAllRounders();
+		HashMap<String,Double> averagePoints = new HashMap<String,Double>();
+		for(String allrounder : allRounders)
+		{
+			Double average = 0.0;
+			for(int i=0;i<list.size();i++)
+			{
+			    if(list.get(i).playerName==allrounder)
+			    	average = average+Double.parseDouble(list.get(i).average);
+			}
+
+			for(int j=0;j<listBowler.size();j++)
+			{
+			    if((listBowler.get(j).playerName).equals(allrounder))
+			    {
+			    	average = average+Double.parseDouble(listBowler.get(j).average);
+			    }
+			    }
+			averagePoints.put(allrounder, average);
+		}
+		//printing allrounders' average(batting+bowling) with points 
+		for(String s : averagePoints.keySet())
+		{
+			System.out.println("name is = " + s + "  and averagePoints are : " + averagePoints.get(s));
+		}
+	return averagePoints;
+	}
+
 }
