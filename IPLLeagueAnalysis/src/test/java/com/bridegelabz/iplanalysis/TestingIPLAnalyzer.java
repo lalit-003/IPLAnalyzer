@@ -1,6 +1,7 @@
 package com.bridegelabz.iplanalysis;
 
 import java.util.HashMap;
+import java.util.prefs.BackingStoreException;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -198,5 +199,31 @@ public class TestingIPLAnalyzer {
 		}
 		Assert.assertEquals("Andre Russell", bestAllRounder);
 	}
+	
+	// UC15
+		// test to check for palyer with  hundreds and best average
+		@Test
+		public void givenCSVFilePath_ShouldReturnPlayerWitnMostHundredsAndBestAverage() throws IplAnalyzerException {
+			iplAnalyzer.loadIplData(filePath);
+			iplAnalyzer.loadIplDataBowler(filePathBowler);
+			iplAnalyzer.getBatsmanNameWhoScoredHundreds();
+			HashMap<String, Double> batsmanWithHundreds = iplAnalyzer.getBatsmanWithHundredsAndBestAverage();
+			Double max = 0.0;
+     		String batsmanWithHundredNBestAverage = null;
+			// checking for maximum average
+			for (String i : batsmanWithHundreds.keySet()) {
+				if (max < batsmanWithHundreds.get(i))
+					max = batsmanWithHundreds.get(i);
+			}
+			// printing batsman with hundred and best average
+			for (String j : batsmanWithHundreds.keySet()) {
+				if (max == batsmanWithHundreds.get(j)) {
+					System.out.println("best allrounder is : " + j + " with points "+ batsmanWithHundreds.get(j));
+					batsmanWithHundredNBestAverage = j;
+				}
+			}
+			Assert.assertEquals("David Warner ", batsmanWithHundredNBestAverage);
+		}
+
 
 }
