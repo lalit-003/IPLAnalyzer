@@ -201,11 +201,10 @@ public class TestingIPLAnalyzer {
 	}
 	
 	// UC15
-		// test to check for palyer with  hundreds and best average
+		// test to check for player with  hundreds and best average
 		@Test
 		public void givenCSVFilePath_ShouldReturnPlayerWitnMostHundredsAndBestAverage() throws IplAnalyzerException {
 			iplAnalyzer.loadIplData(filePath);
-			iplAnalyzer.loadIplDataBowler(filePathBowler);
 			iplAnalyzer.getBatsmanNameWhoScoredHundreds();
 			HashMap<String, Double> batsmanWithHundreds = iplAnalyzer.getBatsmanWithHundredsAndBestAverage();
 			Double max = 0.0;
@@ -218,12 +217,34 @@ public class TestingIPLAnalyzer {
 			// printing batsman with hundred and best average
 			for (String j : batsmanWithHundreds.keySet()) {
 				if (max == batsmanWithHundreds.get(j)) {
-					System.out.println("best allrounder is : " + j + " with points "+ batsmanWithHundreds.get(j));
+					System.out.println("batsman with hundred is : " + j + " with average "+ batsmanWithHundreds.get(j));
 					batsmanWithHundredNBestAverage = j;
 				}
 			}
 			Assert.assertEquals("David Warner ", batsmanWithHundredNBestAverage);
 		}
 
+		// UC16
+				// test to check for player with zero hundreds&fifties and best average
+				@Test
+				public void givenCSVFilePath_ShouldReturnPlayerWithZeroHundredsAndFifties_ButBestAverage() throws IplAnalyzerException {
+					iplAnalyzer.loadIplData(filePath);
+					HashMap<String, Double> batsmanWithNoHundredsNFifty = iplAnalyzer.getBatsmanZeroHundredsAndFiftiesButBestAverage();
+					Double max = 0.0;
+		     		String batsmanWithNoHundredNFiftyButBestAverage = null;
+					// checking for maximum average
+					for (String i : batsmanWithNoHundredsNFifty.keySet()) {
+						if (max < batsmanWithNoHundredsNFifty.get(i))
+							max = batsmanWithNoHundredsNFifty.get(i);
+					}
+					// printing batsman with zero hundred and zero fifty but best average
+					for (String j : batsmanWithNoHundredsNFifty.keySet()) {
+						if (max == batsmanWithNoHundredsNFifty.get(j)) {
+							System.out.println("batsman with no hundreds &  no fifites is : " + j + " with best average "+ batsmanWithNoHundredsNFifty.get(j));
+							batsmanWithNoHundredNFiftyButBestAverage = j;
+						}
+					}
+					Assert.assertEquals("Marcus Stoinis", batsmanWithNoHundredNFiftyButBestAverage);
+				}
 
 }
