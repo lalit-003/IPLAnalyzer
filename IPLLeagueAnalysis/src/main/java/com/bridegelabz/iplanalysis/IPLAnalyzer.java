@@ -309,5 +309,37 @@ public class IPLAnalyzer {
 		}
 		return hundredList;
 	}
+	
+	public List<String> getBatsmanNamesWhoZeroHundredsandZeroFifties() {
+		List<String> listBatsmanWithNoHundredsNFifties = new ArrayList<String>();
+		for (int i = 0; i < list.size(); i++) {
+			if (Integer.parseInt(list.get(i).hundredsScored) == 0 && Integer.parseInt(list.get(i).fiftiesScored) == 0 )
+				listBatsmanWithNoHundredsNFifties.add(list.get(i).playerName);
+		}
+		System.out.println("Batsman who scored zero hundreds and fifties are : ");
+		for (String name : listBatsmanWithNoHundredsNFifties) {
+			System.out.println(name);
+		}
+		return listBatsmanWithNoHundredsNFifties;
+	}
+
+	public HashMap<String, Double> getBatsmanZeroHundredsAndFiftiesButBestAverage() {
+		List<String> batsmanWithNoHundredsNFifties = this.getBatsmanNamesWhoZeroHundredsandZeroFifties();
+		HashMap<String, Double> noHundredNFiftyList = new HashMap<String, Double>();
+		for (String batsman : batsmanWithNoHundredsNFifties) {
+			Double average = 0.0;
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i).playerName == batsman)
+					average = Double.parseDouble(list.get(i).average);
+			}
+			noHundredNFiftyList.put(batsman, average);
+		}
+		// printing batsman with no hundred and no fifties but best average
+		for (String s : noHundredNFiftyList.keySet()) {
+			System.out.println("name is = " + s + "  and average is  : " + noHundredNFiftyList.get(s));
+		}
+		return noHundredNFiftyList;
+	}
+
 
 }
